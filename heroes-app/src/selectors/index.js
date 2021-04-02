@@ -9,6 +9,6 @@ export const getHeroesByPublisher = (publisher) => {
   return heroes.filter((hero) => hero.publisher === publisher);
 };
 
-export const getHeroesById = (id) => {
+export const getHeroById = (id) => {
   return heroes.find((hero) => hero.id === id);
 };
