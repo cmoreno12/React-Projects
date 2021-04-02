@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { getHeroesByPublisher } from "../../selectors";
 import { HeroCard } from "../HeroCard";
 
 export const HeroListScreen = ({ publisher }) => {
-  const heroes = getHeroesByPublisher(publisher);
+  const heroes = useMemo(() => getHeroesByPublisher(publisher), [publisher]);
   return (
     <div className="d-flex flex-wrap">
       {heroes.map((hero) => (
