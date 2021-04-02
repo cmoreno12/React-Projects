@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useMemo } from "react";
+import queryString from "query-string";
 import { heroes } from "../../data";
 import { HeroCard } from "../HeroCard";
 import { useForm } from "../../hooks/useForm";
+import { useLocation } from "react-router";
+import { getHeroesByName } from "../../selectors";
 
-export const SearchScreen = () => {
-  const heroesFiltered = heroes;
-  const [formValues, handleInputChange] = useForm({ searchText: "" });
+export const SearchScreen = ({ history }) => {
+  const location = useLocation();
+  const { q = "" } = queryString.parse(location.search);
+  const [formValues, handleInputChange] = useForm({ searchText: q });
   const { searchText } = formValues;
+  const heroesFiltered = useMemo(() => getHeroesByName(q), [q]);
+
   const handleSearch = (e) => {
     e.preventDefault();
+    history.push(`?q=${searchText}`);
     console.log(searchText);
   };
 
@@ -41,6 +48,12 @@ export const SearchScreen = () => {
         <div className="col-7">
           <h4>Results</h4>
           <hr />
+          {q === "" && <div className="alert alert-info">Search a hero</div>}
+          {q !== "" && heroesFiltered.length === 0 && (
+            <div className="alert alert-danger">
+              There is not a hero with {q}
+            </div>
+          )}
           {heroesFiltered.map((hero) => (
             <HeroCard key={hero.id} {...hero} />
           ))}
