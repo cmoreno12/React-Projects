@@ -1,2 +1,2 @@
 export * from "./gym-button";
-export * from "./gym-input-form";
+export * from "./gym-input";

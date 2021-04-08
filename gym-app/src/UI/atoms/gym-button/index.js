@@ -14,12 +14,18 @@ export const BUTTONSIZE = {
   large: "btn-lg",
 };
 
-const Button = ({ children, size, type, disabled }) => {
+const Button = ({
+  children,
+  disabled,
+  handleClick,
+  size,
+  type,
+}) => {
 
   const className = `btn ${'btn-' + BUTTONSIZE[size] ?? ''} ${'btn-' + BUTTONTYPE[type]}`
 
   return (
-    <button className={className} disabled={disabled} >
+    <button className={className} disabled={disabled} onClick={handleClick}>
       {children}
     </button>
   );
@@ -27,15 +33,16 @@ const Button = ({ children, size, type, disabled }) => {
 
 Button.propTypes = {
   children: PropTypes.node,
+  disabled: PropTypes.bool,
+  handleClick: PropTypes.func,
   size: PropTypes.oneOf(['small', 'large']),
   type: PropTypes.oneOf([
+    'danger',
+    'outline',
     'primary',
     'secondary',
-    'outline',
-    'danger',
     'success'
   ]),
-  disabled: PropTypes.bool,
 }
 
 export default Button;
