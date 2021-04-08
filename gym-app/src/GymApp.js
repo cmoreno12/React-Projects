@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "./hooks";
 import { GymInputForm } from "./UI/atoms";
+import Button from "./UI/atoms/gym-button";
 
 export const GymApp = () => {
   const [formValues, handleInputChange] = useForm({ input1: "" });
@@ -8,6 +9,9 @@ export const GymApp = () => {
 
   return (
     <div>
+      <Button type="primary" size="small">asd</Button>
+      <Button type="danger" size="large" disabled={true} >asd</Button>
+      <Button type="danger" size="large"  >asd</Button>
       <GymInputForm
         placeholder="Input"
         className="mb-3"

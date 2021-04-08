@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React from "react";
-import PropTypes from "prop-types";
 
-export const BUTTONCLASS = {
+export const BUTTONTYPE = {
   primary: "primary",
   secondary: "secondary",
   outline: "outline-primary",
@@ -10,19 +10,32 @@ export const BUTTONCLASS = {
 };
 
 export const BUTTONSIZE = {
-  large: "btn-lg",
   small: "btn-sm",
+  large: "btn-lg",
 };
 
-export const GymButton = ({ type, value, className }) => {
+const Button = ({ children, size, type, disabled }) => {
+
+  const className = `btn ${'btn-' + BUTTONSIZE[size] ?? ''} ${'btn-' + BUTTONTYPE[type]}`
+
   return (
-    <button type={type} className={className}>
-      {value}
+    <button className={className} disabled={disabled} >
+      {children}
     </button>
   );
 };
 
-GymButton.propTypes = {
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-};
+Button.propTypes = {
+  children: PropTypes.node,
+  size: PropTypes.oneOf(['small', 'large']),
+  type: PropTypes.oneOf([
+    'primary',
+    'secondary',
+    'outline',
+    'danger',
+    'success'
+  ]),
+  disabled: PropTypes.bool,
+}
+
+export default Button;
